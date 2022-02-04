@@ -47,23 +47,13 @@ def tokenbalancefunc():
             contractaddress = token['contractaddress']
 
             # get balance for every wallet and every token retrieved earlier from the p2eguildadm_api
-            response = ""
-            if contractaddress == 'base token':
-                baseurl = "https://api.bscscan.com/api?module=account&tag=latest&action=balance"
-                url = "{0}&contractaddress={1}&apikey={2}".format(baseurl, contractaddress, settings.bscscan_api_key)
-            else:
-                baseurl = "https://api.bscscan.com/api?module=account&tag=latest&action=tokenbalance"
-                url = "{0}&contractaddress={1}&address={2}&apikey={3}".format(baseurl, contractaddress,walletaddress, settings.bscscan_api_key)
+            baseurl = "https://api.bscscan.com/api?module=account&tag=latest&action=tokenbalance"
+            url = "{0}&contractaddress={1}&address={2}&apikey={3}".format(baseurl, contractaddress,walletaddress, settings.bscscan_api_key)
             response = requests.get(url)
 
             data = json.loads(response.text)
 
-            # convert the token balance to decimal (with removal of token decimal points)
-            if token['decimalpoints'] == 0:
-                balance = int(data['result'])
-            else:
-                balance = int(data['result']) / token['decimalpoints']
-
+            balance = int(data['result']) / pow(10, token['decimalpoints'])
             balance_dts = str(datetime.now())
 
             # a free bscscan api key can query 5 x second at the maximum therefore let's wait a second to make sure we do not over-extend our subscription
@@ -72,7 +62,8 @@ def tokenbalancefunc():
             # post the new tokenbalance to the p2eguildam_api
             post_tokenbalance(walletid = walletid,crypto_tokenid= crypto_tokenid, balance= balance, balance_dts= balance_dts)
 
-            print("contractaddress {0} in walletid {1} wallet {2} - balance: {3} ".format(contractaddress, walletid, walletaddress, data['result']))
+            # print("contractaddress {0} in walletid {1} wallet {2} - balance: {3} ".format(contractaddress, walletid, walletaddress, data['result']))
+    print('{0}: tokenbalance update finished'.format(str(datetime.now())))
     return 
 
 

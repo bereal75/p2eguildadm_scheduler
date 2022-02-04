@@ -51,7 +51,8 @@ def tokensupplyfunc():
         # post the new tokensupply to the p2eguildam_api
         post_tokensupply(crypto_tokenid=crypto_tokenid, tokensupply=tokensupply, tokensupply_dts=tokensupply_dts)
 
-        print("contractaddress {0} in walletid {1} wallet {2} - balance: {3} ".format(contractaddress, data['result']))
+        # print("contractaddress:  {0} - balance: {1} ".format(contractaddress, data['result']))
+    print('{0}: tokensupply update finished'.format(str(datetime.now())))
     return 
 
 
