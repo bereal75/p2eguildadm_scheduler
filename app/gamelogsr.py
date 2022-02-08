@@ -22,6 +22,7 @@ def get_walletaddresses():
 def gamelogsrfunc():
 
     wallets = get_walletaddresses()
+    i = 0
 
     for wallet in wallets:
         issnapshot = False
@@ -64,12 +65,17 @@ def gamelogsrfunc():
         if canstore_log(changehash.hexdigest()) == True:
             # post the new game log entry in the guild database
             post_gamelogsr(log_dts = log_dts, walletid = walletid, issnapshot=issnapshot , pending_earnings=today_earnings, total_earnings=total_earnings, current_energy=current_energy, max_energy=max_energy, changehash=changehash.hexdigest())
-           
+            i += 1
+      
+    print("{0}: gamelog finished.".format(str(datetime.now())))
+    # print('{0} records written'.format(i))
+
     return 
 
 def gamelogsrsnapshotfunc():
 
     wallets = get_walletaddresses()
+    i = 0
 
     for wallet in wallets:
         issnapshot = True
@@ -112,7 +118,9 @@ def gamelogsrsnapshotfunc():
         if canstore_log(changehash.hexdigest()) == True:
             # post the new game log entry in the guild database
             post_gamelogsr(log_dts = log_dts, walletid = walletid, issnapshot=issnapshot , pending_earnings=today_earnings, total_earnings=total_earnings, current_energy=current_energy, max_energy=max_energy, changehash=changehash.hexdigest())
-    print('{0}: gamelog finished'.format(str(datetime.now())))
+            i += 1
+    print("{0}: gamelog snapshot finished.".format(str(datetime.now())))
+    #print('{0} records written'.format(i))
     return 
 
 

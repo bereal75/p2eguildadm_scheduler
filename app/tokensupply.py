@@ -37,11 +37,13 @@ def tokensupplyfunc():
 
         data = json.loads(response.text)
 
-        # convert the token supply to decimal (with removal of token decimal points)
-        if token['decimalpoints'] == 0:
-            tokensupply = int(data['result'])
-        else:
-            tokensupply = int(data['result']) / token['decimalpoints']
+        tokensupply = int(data['result']) / pow(10, token['decimalpoints'])
+
+        # # convert the token supply to decimal (with removal of token decimal points)
+        # if token['decimalpoints'] == 0:
+        #     tokensupply = int(data['result'])
+        # else:
+        #     tokensupply = int(data['result']) / token['decimalpoints']
 
         tokensupply_dts = str(datetime.now())
 

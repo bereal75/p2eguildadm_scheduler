@@ -19,10 +19,10 @@ from apscheduler.schedulers.background import BackgroundScheduler
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
     # scheduler.add_job(train_model, 'interval', seconds=15)
-    scheduler.add_job(tokenbalancefunc, trigger='cron', hour="7", minute="48", second="5", max_instances = 1)
-    scheduler.add_job(tokensupplyfunc, trigger='cron', hour="8", minute="20", second="10", max_instances = 1)
-    scheduler.add_job(gamelogsrfunc, trigger='cron', second='*/45', max_instances = 1)
-    scheduler.add_job(gamelogsrsnapshotfunc, trigger='cron', hour="1", minute="3", max_instances = 1)
+    scheduler.add_job(tokenbalancefunc, trigger='cron', hour='*/1', minute='2')
+    scheduler.add_job(tokensupplyfunc, trigger='cron', hour='*/1', minute='4')
+    scheduler.add_job(gamelogsrfunc, trigger='cron', second='*/45')
+    scheduler.add_job(gamelogsrsnapshotfunc, trigger='cron', hour="1", minute="3")
 
     
     scheduler.start()
