@@ -32,7 +32,7 @@ def gamelogsrfunc():
     
         # get energy
         response = ""
-        baseurl="https://api.risingsun.finance/energy/"
+        baseurl="http://api.risingsun.finance/energy/"
         url = "{0}/{1}".format(baseurl, walletaddress)
         response = requests.get(url)
 
@@ -128,7 +128,7 @@ def gamelogsrsnapshotfunc():
 # the game log entries we retrieved from the rising sun api are posted back into the guild database for analysis purposes
 def post_gamelogsr(log_dts : str, walletid: int, issnapshot: bool, pending_earnings: int, total_earnings: int, current_energy: int, max_energy: int, changehash: str):
     response = ""
-    url = f"http://{settings.p2eguildadm_api_host}:{settings.p2eguildadm_api_port}/gamelogsr"
+    url = "http://{0}:{1}/gamelogsr".format(settings.p2eguildadm_api_host, settings.p2eguildadm_api_port)
 
     body = {'log_dts': log_dts, 'walletid': walletid, 'issnapshot' : issnapshot,
             'pending_earnings': pending_earnings, 'total_earnings': total_earnings, 'current_energy' : current_energy , 'max_energy' : max_energy, 'changehash' : changehash }

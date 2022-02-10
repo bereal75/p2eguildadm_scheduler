@@ -71,7 +71,7 @@ def tokenbalancefunc():
 # the token balances we retrieved from the BSC blockain are posted back into the guild database for analysis purposes
 def post_tokenbalance(walletid: int, crypto_tokenid: int, balance: Decimal, balance_dts: str ):
     response = ""
-    url = f"http://{settings.p2eguildadm_api_host}:{settings.p2eguildadm_api_port}/walletbalance"
+    url = "http://{0}:{1}/walletbalance".format(settings.p2eguildadm_api_host , settings.p2eguildadm_api_port)
 
     body = {'walletid': walletid, 'crypto_tokenid': crypto_tokenid,
             'balance': balance, 'balance_dts': balance_dts }

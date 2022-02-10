@@ -61,7 +61,7 @@ def tokensupplyfunc():
 # the token balances we retrieved from the BSC blockain are posted back into the guild database for analysis purposes
 def post_tokensupply(crypto_tokenid: int, tokensupply: Decimal, tokensupply_dts: str ):
     response = ""
-    url = f"http://{settings.p2eguildadm_api_host}:{settings.p2eguildadm_api_port}/tokensupply"
+    url = "http://{0}:{1}/tokensupply".format(settings.p2eguildadm_api_host, settings.p2eguildadm_api_port)
 
     body = {'crypto_tokenid': crypto_tokenid,
             'tokensupply': tokensupply, 'tokensupply_dts': tokensupply_dts }
