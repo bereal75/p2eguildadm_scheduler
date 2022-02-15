@@ -1,12 +1,10 @@
 from datetime import datetime
 import time
 import os
-import requests
-import json
 from decimal import Decimal
 
 from config import settings
-from tokenbalalances import tokenbalancefunc
+from tokenbalances import tokenbalancefunc
 from tokensupply import tokensupplyfunc
 from gamelogsr import gamelogsrfunc, gamelogsrsnapshotfunc
 
@@ -18,10 +16,17 @@ from apscheduler.schedulers.background import BackgroundScheduler
 if __name__ == '__main__':
     scheduler = BackgroundScheduler()
     # scheduler.add_job(train_model, 'interval', seconds=15)
-    scheduler.add_job(tokenbalancefunc, trigger='cron', hour='*/1', minute='2')
-    scheduler.add_job(tokensupplyfunc, trigger='cron', hour='*/1', minute='4')
+    
+    #temp deactivated
+    scheduler.add_job(tokenbalancefunc, trigger='cron', hour='*/1', minute='1')
+    scheduler.add_job(tokensupplyfunc, trigger='cron', hour='*/1', minute='3')
     scheduler.add_job(gamelogsrfunc, trigger='cron', second='*/45')
-    scheduler.add_job(gamelogsrsnapshotfunc, trigger='cron', hour="1", minute="3")
+
+    #scheduler.add_job(tokenbalancefunc, 'interval', minutes=1)
+    # scheduler.add_job(tokenbalancefunc,'date', datetime.now() )
+
+    # temporarily deactivated
+    # scheduler.add_job(gamelogsrsnapshotfunc, trigger='cron', hour="1", minute="3")
 
     
     scheduler.start()
